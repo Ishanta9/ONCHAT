@@ -1,0 +1,137 @@
+/* Reset & base */
+* {
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #7DF9FF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+header {
+  padding: 0.5rem 0.5rem;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 2px solid #7DF9FF;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  background: #142f4c;
+  padding: 1rem 0;
+  font-weight: 600;
+}
+nav a {
+  color: #ADD8E6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: #7DF9FF;
+}
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+main h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+main p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: white;
+}
+section {
+  max-width: 700px;
+  text-align: left;
+  color: #7DF9FF;
+  margin-top: 3rem;
+}
+section#about {
+  margin-top: 4rem;
+}
+section#features ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+section#features ul li {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+}
+a.btn {
+  background: blue;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,29,128,0.3);
+  transition: background 0.3s ease, box-shadow 0.6s ease;
+  border: none;
+  display: inline-block;
+}
+a.btn:hover, button.btn:hover {
+  background: #7DF9FF;
+  color: #fff;
+  box-shadow: 0 0 20px #266CA9, 0 0 40px #266CA9;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+input[type="text"],
+input[type="email"],
+textarea {
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: lightblue;
+  background: #142f4c;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main h1 {
+    font-size: 2rem;
+  }
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
