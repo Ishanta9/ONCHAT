@@ -71,17 +71,21 @@
         <button class="btn">Login</button>
 
         <button onclick="signInWithGoogle()">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
     Continue with Google
-</button>
+        </button>
 
         <p style="margin-top:10px;">Don't have an account? <a href="#">Sign Up</a></p>
     </div>
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script>
-  // Tumhara Firebase config
+<script type="module">
+  // Firebase import
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  // Tumhara config
   const firebaseConfig = {
       apiKey: "AIzaSyAY_3GvROPPHKQ-F8Vo7n0RCbCTlQWIDM",
       authDomain: "onchat-f3ed4.firebaseapp.com",
@@ -92,23 +96,23 @@
       measurementId: "G-SV23HJ5H23"
   };
 
-  // Firebase initialize
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
-  function signInWithGoogle() {
-      auth.signInWithPopup(provider)
-      .then(result => {
-          const user = result.user;
-          alert(`Welcome ${user.displayName}`);
-          // Login hone ke baad redirect
-          window.location.href = "dashboard.html";
-      })
-      .catch(error => {
-          console.error(error);
-          alert("Login failed!");
-      });
+  // Google Sign-in function
+  window.signInWithGoogle = function () {
+      signInWithPopup(auth, provider)
+          .then((result) => {
+              const user = result.user;
+              alert(`Welcome ${user.displayName}`);
+              window.location.href = "dashboard.html";
+          })
+          .catch((error) => {
+              console.error(error);
+              alert("Login failed!");
+          });
   }
 </script>
 </body>
