@@ -70,12 +70,46 @@
         <input type="password" placeholder="Password">
         <button class="btn">Login</button>
 
-        <button class="btn google-btn">
-            <img src="https://image2url.com/images/1755085147314-f2f522b7-0ae6-4057-b6a5-5a93679f6bc1.jpg" alt="Google logo">
-            Continue with Google
-        </button>
+        <button onclick="signInWithGoogle()">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+    Continue with Google
+</button>
 
         <p style="margin-top:10px;">Don't have an account? <a href="#">Sign Up</a></p>
     </div>
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script>
+  // Tumhara Firebase config
+  const firebaseConfig = {
+      apiKey: "AIzaSyAY_3GvROPPHKQ-F8Vo7n0RCbCTlQWIDM",
+      authDomain: "onchat-f3ed4.firebaseapp.com",
+      projectId: "onchat-f3ed4",
+      storageBucket: "onchat-f3ed4.appspot.com",
+      messagingSenderId: "186063074329",
+      appId: "1:186063074329:web:251964674f1e11b8a42688",
+      measurementId: "G-SV23HJ5H23"
+  };
+
+  // Firebase initialize
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  function signInWithGoogle() {
+      auth.signInWithPopup(provider)
+      .then(result => {
+          const user = result.user;
+          alert(`Welcome ${user.displayName}`);
+          // Login hone ke baad redirect
+          window.location.href = "dashboard.html";
+      })
+      .catch(error => {
+          console.error(error);
+          alert("Login failed!");
+      });
+  }
+    </script>
 </body>
 </html>
