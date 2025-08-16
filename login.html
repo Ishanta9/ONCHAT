@@ -1,85 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - ONCHAT</title>
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Firebase compat SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<meta charset="UTF-8">
+<title>Login - ONCHAT</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #001f3f, #003366);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-box {
+    background: rgba(0,0,0,0.6);
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.google-btn img {
+    width: 20px;
+}
+</style>
 </head>
 <body>
-  <div class="login-container">
+
+<div class="login-box">
     <h2>Login to ONCHAT</h2>
-    <button id="google-login" class="google-btn">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
-      Continue with Google
+    <button class="google-btn" onclick="signInWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        Continue with Google
     </button>
-  </div>
+    <p id="user-info" style="margin-top:15px;"></p>
+</div>
 
-  <script>
-    // Tumhara Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAY5yrWejziCPzDcmb-loC_DSuszoQVXSNE",
-      authDomain: "onchat-c88c1.firebaseapp.com",
-      projectId: "onchat-c88c1",
-      storageBucket: "onchat-c88c1.appspot.com",
-      messagingSenderId: "909496762261",
-      appId: "1:909496762261:web:fc1344994210f11814585c",
-      measurementId: "G-9J6GGVWSWN"
-    };
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 
-    // Firebase init
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+<script>
+// 🔹 Replace with your Firebase config
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-
-    // Google login
-    document.getElementById("google-login").addEventListener("click", () => {
-      auth.signInWithPopup(provider)
-        .then((result) => {
-          const user = result.user;
-          alert("Welcome " + user.displayName);
-          window.location.href = "dashboard.html"; // redirect
-        })
-        .catch((error) => {
-          console.error(error);
-          alert("Login failed: " + error.message);
-        });
+    auth.signInWithPopup(provider)
+    .then(result => {
+        document.getElementById("user-info").innerText =
+            "Welcome, " + result.user.displayName + " (" + result.user.email + ")";
+    })
+    .catch(error => {
+        console.error(error);
     });
-  </script>
+}
+</script>
 
-  <style>
-    .login-container {
-      text-align: center;
-      margin-top: 100px;
-      font-family: Arial, sans-serif;
-    }
-
-    .google-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: white;
-      color: #444;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .google-btn img {
-      width: 20px;
-      height: 20px;
-    }
-
-    .google-btn:hover {
-      background: #f7f7f7;
-    }
-  </style>
 </body>
 </html>
