@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - ONCHAT</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body>
   <div class="login-container">
@@ -19,7 +20,7 @@
   </div>
 
   <script>
-    // ✅ Tumhara naya Firebase config
+    // Tumhara Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAY5yrWejziCPzDcmb-loC_DSuszoQVXSNE",
       authDomain: "onchat-c88c1.firebaseapp.com",
@@ -30,22 +31,18 @@
       measurementId: "G-9J6GGVWSWN"
     };
 
-    // ✅ Firebase initialize
-    const app = firebase.initializeApp(firebaseConfig);
+    // Firebase init
+    firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-
-    // ✅ Google login
     const provider = new firebase.auth.GoogleAuthProvider();
 
+    // Google login
     document.getElementById("google-login").addEventListener("click", () => {
       auth.signInWithPopup(provider)
         .then((result) => {
-          // User info
           const user = result.user;
           alert("Welcome " + user.displayName);
-
-          // Login ke baad redirect to dashboard
-          window.location.href = "dashboard.html";
+          window.location.href = "dashboard.html"; // redirect
         })
         .catch((error) => {
           console.error(error);
