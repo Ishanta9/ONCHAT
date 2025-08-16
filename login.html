@@ -81,40 +81,36 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
 <script type="module">
-  // Firebase import
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  // Firebase SDKs already included via <script> tags above
 
-  // Tumhara config
   // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAfYwezjicPzDcmb-loC_DSuszoQVXSNE",
-  authDomain: "onchat-c88c1.firebaseapp.com",
-  projectId: "onchat-c88c1",
-  storageBucket: "onchat-c88c1.appspot.com",
-  messagingSenderId: "909496762261",
-  appId: "1:909496762261:web:fc344992410f11814585c",
-  measurementId: "G-9J6GGVWSWN"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfYwezjicPzDcmb-loC_DSuszoQVXSNE",
+    authDomain: "onchat-c88c1.firebaseapp.com",
+    projectId: "onchat-c88c1",
+    storageBucket: "onchat-c88c1.appspot.com",
+    messagingSenderId: "909496762261",
+    appId: "1:909496762261:web:fc344992410f11814585c",
+    measurementId: "G-9J6GGVWSWN"
+  };
 
-  // Init Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
 
-  // Google Sign-in function
-  window.signInWithGoogle = function () {
-      signInWithPopup(auth, provider)
-          .then((result) => {
-              const user = result.user;
-              alert(`Welcome ${user.displayName}`);
-              window.location.href = "dashboard.html";
-          })
-          .catch((error) => {
-              console.error(error);
-              alert("Login failed!");
-          });
-  }
+  // Google Auth provider
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  document.getElementById("google-login").addEventListener("click", () => {
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        console.log("User signed in: ", result.user);
+        alert("Welcome " + result.user.displayName);
+        // yahan baad me redirect karenge dashboard.html par
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  });
 </script>
 </body>
 </html>
