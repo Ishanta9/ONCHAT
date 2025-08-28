@@ -78,18 +78,49 @@
 <body>
   <div class="login-box">
     <h1>Sign In to your ONCHAT Account</h1>
-    <div class="input-box">
-      <input type="email" placeholder="Email">
-    </div>
-    <div class="input-box">
-      <input type="password" placeholder="Password">
-    </div>
-    <button class="btn">Sign In</button>
+    
+    <!-- form yaha start karega -->
+    <form onsubmit="validateLogin(event)">
+      <div class="input-box">
+        <input type="email" id="email" placeholder="Email">
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+    <!-- form yaha khatam hoga -->
 
     <div class="alt-signin">
       Don’t have an account? <a href="signup.html">Sign Up</a>
     </div>
   </div>
+  <script>
+  function validateLogin(event) {
+    event.preventDefault(); // page reload na ho
 
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    // localStorage se user data nikalna
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedPassword = localStorage.getItem("userPassword");
+
+    // Validation
+    if (!storedEmail || !storedPassword) {
+      alert("No account found! Please sign up first.");
+      window.location.href = "signup.html";
+      return;
+    }
+
+    if (email === storedEmail && password === storedPassword) {
+      alert("Login Successful ✅");
+      // Yaha tu user ko home page pe redirect kar sakta hai
+      window.location.href = "home.html";
+    } else {
+      alert("Invalid email or password ❌");
+    }
+  }
+</script>
 </body>
 </html>
