@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #2575fc;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #6a11cb;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Create Account</h2>
+    <form id="signupForm">
+      <input type="text" id="username" placeholder="Enter Username" required>
+      <div id="userError" class="error"></div>
+
+      <input type="email" id="email" placeholder="Enter Email" required>
+      <div id="emailError" class="error"></div>
+
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <div id="passError" class="error"></div>
+
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <div id="confirmError" class="error"></div>
+
+      <button type="submit">Sign Up</button>
+      <p id="successMessage" class="success"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Page refresh hone se rokta hai
+
+      // Inputs ko capture karna
+      let username = document.getElementById("username").value;
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Error message fields
+      let userError = document.getElementById("userError");
+      let emailError = document.getElementById("emailError");
+      let passError = document.getElementById("passError");
+      let confirmError = document.getElementById("confirmError");
+      let successMessage = document.getElementById("successMessage");
+
+      // Reset previous errors
+      userError.textContent = "";
+      emailError.textContent = "";
+      passError.textContent = "";
+      confirmError.textContent = "";
+      successMessage.textContent = "";
+
+      let valid = true;
+
+      // Username check
+      if (username.length < 3) {
+        userError.textContent = "Username must be at least 3 characters long.";
+        valid = false;
+      }
+
+      // Email check
+      let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        emailError.textContent = "Enter a valid email.";
+        valid = false;
+      }
+
+      // Password check
+      if (password.length < 6) {
+        passError.textContent = "Password must be at least 6 characters.";
+        valid = false;
+      }
+
+      // Confirm Password check
+      if (password !== confirmPassword) {
+        confirmError.textContent = "Passwords do not match!";
+        valid = false;
+      }
+
+      // Agar sab valid hai
+      if (valid) {
+        successMessage.textContent = "Account created successfully!";
+        form.reset(); // sab fields empty kar dega
+      }
+    });
+  </script>
+</body>
+</html>
